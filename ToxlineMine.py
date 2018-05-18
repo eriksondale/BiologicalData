@@ -43,15 +43,28 @@ else:
     IDs = IDStr.split(" ")
 print(IDs)
 
+drugName = raw_input("What drug did you want?: ")
+count = 0
+
+print(' ')
+print('==============================================')
+print(' ')
 # Printing the desired contents of the file
 for label in IDs:
-    print(' ')
-    print('==============================================')
-    print(' ')
     data = urllib2.urlopen("https://toxgate.nlm.nih.gov/cgi-bin/sis/search2/z?dbs+toxline:@term+@DOCNO+" + label).read()
-    # Insert confirming keywords present here 
-    title = data[data.find("<na>")+4:data.find("</na>")]
-    abstract = data[data.find("<ab>")+4:data.find("</ab>")]
-    print(title)
-    print(' ')
-    print(abstract)
+    # Insert confirming keywords present here
+    if(drugName in data or drugName.title() in data):
+        count = count + 1
+        title = data[data.find("<na>")+4:data.find("</na>")]
+        authors = data[data.find("<au>")+4:data.find("</au>")]
+        source =  data[data.find("<so>")+4:data.find("</so>")]
+        abstract = data[data.find("<ab>")+4:data.find("</ab>")]
+        print(title)
+        print(authors)
+        print(source)
+        print(' ')
+        print(abstract)
+        print(' ')
+        print('==============================================')
+        print(' ')
+print(str(count) + " articles were found with the drug" )
