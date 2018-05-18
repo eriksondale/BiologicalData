@@ -1,0 +1,41 @@
+(Levofloxacin OR Trovofloxacin OR Tolcapone OR Entacapone OR Troglitazone) AND (Human) AND (Liver) AND (Hepatotoxicity OR Hepatocellular Injury OR DILI OR Drug-induced Liver Injury OR Hepatic Function Abnormal OR Acute Hepatic Failure OR Liver Function Test Abnormal OR Enzyme Increase OR Hepatic Faiure OR Jaundice OR Disorder OR Gamma Glutamytransferase OR Hepatitis OR Transaminases Increase) AND NOT (Mouse OR Mice OR Rat)  
+
+(Tolcapone) AND (Human) AND (Liver) AND (Hepatotoxicity OR Hepatocellular Injury OR DILI OR Drug-induced Liver Injury OR Hepatic Function Abnormal OR Acute Hepatic Failure OR Liver Function Test Abnormal OR Enzyme Increase OR Hepatic Faiure OR Jaundice OR Disorder OR Gamma Glutamytransferase OR Hepatitis OR Transaminases Increase) AND NOT (Mouse OR Mice OR Rat)
+
+Drugs: 
+- Levofloxacin
+- Trovofloxacin
+- Tolcapone 
+- Entacapone
+- Troglitazone 
+
+Inclusion Words: 
+- Hepatotoxicity 
+- Hepatocellular Injury 
+- Alanine aminotransferase increase 
+- Aspartate aminotransferase increase
+- ALT 
+- AST
+- Hepatic Failure 
+- Hepatic Enzyme Increase
+- Liver Enzyme Increase
+- Liver Function Test Abnormal 
+- Acute Hepatic Failure 
+- Hepatic Function Abnormal 
+- Drug-Induced Liver Injury 
+- DILI 
+- Liver Disorder 
+- Gamma Glutamytransferase increase
+- Hepatitis 
+- Hepatitis cholestatic
+- Transaminases increases 
+- Blood 
+- Cholestasis 
+- Hypoalbuminaemia (British and English version) 
+- Hepatisis fulminant 
+- Hepatomegaly
+
+Exclusion Words: 
+- Mouse
+- Mice
+- Rats 
