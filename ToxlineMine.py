@@ -2,6 +2,7 @@ import urllib2
 import math
 from sys  import argv as argument
 from docx import Document
+import re
 
 def expandResults(hits, tempFile): # Helper method meant to increase results size upon user request
     returnIDs = []
@@ -25,11 +26,12 @@ keyword = raw_input("Enter search words: ")
 
 # Making list of keywords in order to bold in results later
 keywordTemp = keyword
+keywordTemp = keywordTemp.lower() # For case-insensitive comparison later....
 keywordTemp = keywordTemp.replace("(","")
 keywordTemp = keywordTemp.replace(")","")
-keywordTemp = keywordTemp.replace("AND","")
-keywordTemp = keywordTemp.replace("OR","")
-keywordTemp = keywordTemp.replace("NOT","")
+keywordTemp = keywordTemp.replace("and","")
+keywordTemp = keywordTemp.replace("or","")
+keywordTemp = keywordTemp.replace("not","")
 keyList = keywordTemp.split(" ")
 while '' in keyList:
     keyList.remove('')
@@ -66,28 +68,49 @@ else:
 drugName = raw_input("What drug did you want?: ")
 count = 0
 
+p = document.add_paragraph()
 p.add_run('Drug: ').bold = True
 p.add_run(drugName.capitalize())
 
-document.add_paragraph(' ')
 # Printing the desired contents of the file
 for label in IDs:
     data = urllib2.urlopen("https://toxgate.nlm.nih.gov/cgi-bin/sis/search2/z?dbs+toxline:@term+@DOCNO+" + label).read()
     # Insert confirming keywords present here
     if(drugName in data or drugName.capitalize() in data):
         count = count + 1
-        title = data[data.find("<na>")+4:data.find("</na>")]
-        authors = data[data.find("<au>")+4:data.find("</au>")]
-        source =  data[data.find("<so>")+4:data.find("</so>")]
-        abstract = data[data.find("<ab>")+4:data.find("</ab>")]
+        if "<na>" in data:
+            title = data[data.find("<na>")+4:data.find("</na>")]
+            title = title.strip() # Will remove \n if present
+            p = document.add_paragraph()
+            p.add_run(title).bold = True
+        if "<au>" in data:
+            authors = data[data.find("<au>")+4:data.find("</au>")]
+            authors = authors.strip() # Will remove \n if present
+            p = document.add_paragraph()
+            p.add_run(authors)
+        if "<so>" in data:
+            source =  data[data.find("<so>")+4:data.find("</so>")]
+            source = source.strip() # Will remove \n if present
+            p = document.add_paragraph()
+            p.add_run(source)
+        if "<ab>" in data:
+            abstract = data[data.find("<ab>")+4:data.find("</ab>")]
+            abstract = abstract.strip() # Will remove \n if present 
+            p = document.add_paragraph()
+            for word in abstract.split(): # Rewrite this to be more versatile
+                foundWord = None
+                for key in keyList:
+                    if(key in word.lower()):
+                        foundWord = key
+                if foundWord is not None:
+                    #print(foundWord)
+                    keyPos = word.lower().find(foundWord)
+                    p.add_run(word[0:keyPos])
+                    p.add_run(word[keyPos:keyPos+len(foundWord)]).bold = True
+                    p.add_run(word[keyPos+len(foundWord):] + ' ')
+                else:
+                    p.add_run(word + ' ')
         p = document.add_paragraph(' ')
-        p = document.add_paragraph()
-        p.add_run(title).bold = True
-        p = document.add_paragraph()
-        p.add_run(authors)
-        p = document.add_paragraph()
-        p.add_run(source)
-        p = document.add_paragraph()
-        p.add_run(abstract)
+
 document.save(drugName.capitalize() + 'ToxlineSearch.docx')
 print(str(count) + " articles were found with the drug. See created document..." )
