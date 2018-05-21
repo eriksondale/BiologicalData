@@ -95,7 +95,7 @@ for label in IDs:
             p.add_run(source)
         if "<ab>" in data:
             abstract = data[data.find("<ab>")+4:data.find("</ab>")]
-            abstract = abstract.strip() # Will remove \n if present 
+            abstract = abstract.strip() # Will remove \n if present
             p = document.add_paragraph()
             for word in abstract.split(): # Rewrite this to be more versatile
                 foundWord = None
