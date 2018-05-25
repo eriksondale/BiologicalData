@@ -1,0 +1,30 @@
+Abnormal
+Alanine Aminotransferase 
+Aspartate Aminotransferase 
+ALT
+AST
+Blood
+Cholestatic
+Cholestasis
+DILI
+Disorder
+Drug-Induced Liver Injury
+Enzyme
+Failure
+Gamma Glutamytransferase
+Hepatic
+Hepatitis
+Hepatocellular
+Hepatomegaly
+Hepatotoxicity 
+Human
+Hypoalbuminaemia
+Injury
+Jaundice
+Liver
+Transaminases
+
+NOT
+Rats
+Mice
+Mouse
