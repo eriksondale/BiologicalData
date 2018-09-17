@@ -4,6 +4,9 @@ import psycopg2
 import psycopg2.extras
 import time
 
+# Note this will cause server to close connection if
+# run for a long period of time (~ 12 hours)
+
 studyIDs = []
 with open('clinTrialIDlist.txt','r') as IDFile:
     for line in IDFile:
