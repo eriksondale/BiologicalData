@@ -1,21 +1,28 @@
 import ujson as json
+import sys
+import time
 
 def getDictFromFile(fileName, clinID):
     studyFile = open(fileName, 'r')
     firstLine = studyFile.readline()
     firstLine = firstLine.split('|')
+    studyInfo = {}
     for line in studyFile:
         if id in line:
             line =  line.split('|')
-            studyInfo = {}
             for x in range(0,len(line)):
-                print(firstLine[x] + ": " + line[x])
-                studyInfo[firstLine[x]] = line[x]
+                try:
+                    studyInfo[firstLine[x].strip("\n")] = line[x].strip("\n")
+                except Exception as e:
+                    errorFile = open('extractErrorLog.txt','a')
+                    errorFile.write('ERROR! File: ' + filename + ';Clinical ID: ' + clinID + ';Error: ' + e)
+                    errorFile.close()
             break
     studyFile.close()
-    return dict
+    return studyInfo
 
 # build study ID list
+starttime = time.time() 
 idFile = open("clinTrialIDlist.txt","r")
 ids = []
 count = 0
@@ -48,3 +55,6 @@ for id in ids:
     outfile = open('trialData.json','a')
     json.dump(study,outfile)
     outfile.close()
+    infoCount = infoCount + 1
+    print(str(infoCount)+ " / " + str(count) + " Studies\n")
+print("Time: " + (time.time() - starttime))
