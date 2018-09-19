@@ -15,14 +15,14 @@ def getDictFromFile(fileName, clinID):
                     studyInfo[firstLine[x].strip("\n")] = line[x].strip("\n")
                 except Exception as e:
                     errorFile = open('extractErrorLog.txt','a')
-                    errorFile.write('ERROR! File: ' + filename + ';Clinical ID: ' + clinID + ';Error: ' + e)
+                    errorFile.write('ERROR! File: ' + fileName + ';Clinical ID: ' + clinID + ';Error: ' + e)
                     errorFile.close()
             break
     studyFile.close()
     return studyInfo
 
 # build study ID list
-starttime = time.time() 
+starttime = time.time()
 idFile = open("clinTrialIDlist.txt","r")
 ids = []
 count = 0
